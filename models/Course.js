@@ -10,9 +10,12 @@ const schema = new mongoose.Schema({
     maxlength: 200
   },
   teacher: {
-    type: String
+    type: mongoose.Types.ObjectId,
+    ref: "User"
   },
-  
+  maxStudent: {
+    type: Number
+  }
 });
 
 module.exports = mongoose.model("Course", schema);

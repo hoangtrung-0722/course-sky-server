@@ -10,36 +10,38 @@ const port = process.env.PORT;
 const app = express();
 
 const server = http.createServer(app);
+
 mongoose
-  .connect(process.env.DATABASE_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => {
-    console.log("Database connection error: ", error);
-  });
+    .connect(process.env.DATABASE_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .catch((error) => {
+        console.log("Database connection error: ", error);
+    });
 
 mongoose.connection.on("connected", function () {
-  console.log("Database connected");
+    console.log("Database connected");
 });
 
 app.use(
-  cors({
-    credentials: true,
-    origin: process.env.ORIGIN,
-  })
+    cors({
+        credentials: true,
+        origin: process.env.ORIGIN,
+    })
 );
 
 app.get("/", (req, res) => {
-  res.send("blank space");
+    res.send("blank space");
 });
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/courses", require("./routes/couseRoute"));
+app.use("/api/courses", require("./routes/couseRoute"));
 app.use("/api/auth", require("./routes/authRoute"));
+app.use("/api/user", require("./routes/userRoute"));
 
 server.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+    console.log(`Server is listening on port ${port}`);
 });

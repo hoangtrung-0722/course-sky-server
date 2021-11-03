@@ -3,6 +3,6 @@ const router = express.Router();
 const controller = require("../controllers/courseController");
 
 router.get("/", controller.getCourses);
-router.get("/create", controller.createCourse);
+router.post("/create", controller.createCourse);
 
 module.exports = router;
